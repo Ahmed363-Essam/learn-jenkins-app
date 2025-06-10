@@ -102,7 +102,7 @@ pipeline {
                     node_modules/.bin/netlify --version
                     echo "$NETFLY_SITE_ID"
 
-                    node_modules/.bin/netlify deploy --dir=build
+                    node_modules/.bin/netlify deploy --dir=build --prod
                 '''
             }
         }
