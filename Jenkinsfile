@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment{
-        NETLIFY_SITE_ID = 'ea20ac44-be47-4fd2-a211-cabe26c60c1d'
+        NETFLY_SITE_ID = 'ea20ac44-be47-4fd2-a211-cabe26c60c1d'
         NETLIFY_AUTH_TOKEN = credentials('netfly-jenkins-token')
     }
 
@@ -101,7 +101,7 @@ pipeline {
                     npm install  netlify-cli@20.1.1
                     node_modules/.bin/netlify --version
                     
-                    node_modules/.bin/netlify deploy --dir=build --prod --auth=$NETLIFY_AUTH_TOKEN --site=$NETLIFY_SITE_ID
+                    node_modules/.bin/netlify deploy --dir=build --prod --auth=$NETLIFY_AUTH_TOKEN --site=$NETFLY_SITE_ID
                 '''
             }
         }
