@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment{
-        NETFLY_SITE_ID = 'ea20ac44-be47-4fd2-a211-cabe26c60c1d'
-        NETFLY_AUTH_TOKEN = credentials('netfly-jenkins-token')
+        NETLIFY_SITE_ID = 'ea20ac44-be47-4fd2-a211-cabe26c60c1d'
+        NETLIFY_AUTH_TOKEN = credentials('netfly-jenkins-token')
     }
 
     stages {
@@ -100,9 +100,8 @@ pipeline {
                 sh '''
                     npm install  netlify-cli@20.1.1
                     node_modules/.bin/netlify --version
-                    echo "$NETFLY_SITE_ID"
-
-                    node_modules/.bin/netlify deploy --dir=build --prod
+                    
+                    node_modules/.bin/netlify deploy --dir=build --prod --auth=$NETLIFY_AUTH_TOKEN --site=$NETLIFY_SITE_ID
                 '''
             }
         }
