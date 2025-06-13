@@ -4,6 +4,7 @@ pipeline {
     environment{
         NETFLY_SITE_ID = 'ea20ac44-be47-4fd2-a211-cabe26c60c1d'
         NETLIFY_AUTH_TOKEN = credentials('netfly-jenkins-token')
+        CI_ENVIRONMENT_URL = "https://symphonious-stardust-563860.netlify.app/"
     }
 
     stages {
@@ -55,7 +56,7 @@ pipeline {
                         junit 'jest-results/junit.xml'                        }
                     }
             }
-
+/* FOR LOCAL */
             stage('E2E') {
                 agent {
                     docker {
@@ -79,8 +80,6 @@ pipeline {
                         publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, icon: '', keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'playwright-report HTML Report', reportTitles: '', useWrapperFileDirectly: true])
                         }
                     }
-
-
             }
 
 
@@ -90,7 +89,7 @@ pipeline {
         }
 
 
-                stage('Deply') {
+        stage('Deply') {
             agent {
                 docker {
                     image 'node:18-alpine'
@@ -106,6 +105,34 @@ pipeline {
                 '''
             }
         }
+
+
+
+            stage('Prod E2E') {
+                agent {
+                    docker {
+                        image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
+                        reuseNode true
+                    }
+                }
+
+            environment{
+                CI_ENVIRONMENT_URL = "https://symphonious-stardust-563860.netlify.app/"
+            }
+
+                steps {
+                    sh '''
+                        npx playwright test --reporter=html
+                    '''
+                }
+
+                    post {
+                    always {
+
+                        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, icon: '', keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'E2E PROD HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+                        }
+                    }
+            }
 
 
 
