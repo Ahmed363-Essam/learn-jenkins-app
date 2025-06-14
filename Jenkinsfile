@@ -109,7 +109,7 @@ pipeline {
         stage('Deply dev') {
             agent {
                 docker {
-                    image 'node:18-alpine'
+                    image 'my-playwright'
                     reuseNode true
                 }
             }
@@ -127,7 +127,7 @@ pipeline {
         stage('Deply') {
             agent {
                 docker {
-                    image 'node:18-alpine'
+                    image 'my-playwright'
                     reuseNode true
                 }
             }
