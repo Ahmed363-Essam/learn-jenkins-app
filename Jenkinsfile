@@ -117,7 +117,6 @@ pipeline {
                 sh '''
 
                     netlify --version
-                    
                     netlify deploy --dir=build --auth=$NETLIFY_AUTH_TOKEN --site=$NETFLY_SITE_ID
                 '''
             }
@@ -135,13 +134,19 @@ pipeline {
             steps {
                 sh '''
              
-                    netlify --version
-                    
+                                netlify --version
+                    echo "Deploying to staging. Site ID: $NETFLY_SITE_ID"
+       
                     netlify deploy --dir=build --prod --auth=$NETLIFY_AUTH_TOKEN --site=$NETFLY_SITE_ID
+                    CI_ENVIRONMENT_URL=$(node-jq -r '.deploy_url' deploy-output.json)
+                    npx playwright test  --reporter=html
+
+
+                    
+                    
                 '''
             }
         }
-
 
 
             stage('Prod E2E') {
