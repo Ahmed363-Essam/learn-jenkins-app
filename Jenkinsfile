@@ -4,10 +4,18 @@ pipeline {
     environment{
         NETFLY_SITE_ID = 'ea20ac44-be47-4fd2-a211-cabe26c60c1d'
         NETLIFY_AUTH_TOKEN = credentials('netfly-jenkins-token')
-        CI_ENVIRONMENT_URL = "https://symphonious-stardust-563860.netlify.app/"
+
     }
 
     stages {
+
+                stage('Docker') {
+            steps {
+                sh 'docker build -t my-playwright .'
+            }
+        }
+
+        
         
 
         stage('Build') {
@@ -139,7 +147,7 @@ pipeline {
             stage('Prod E2E') {
                 agent {
                     docker {
-                        image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
+                        image ''
                         reuseNode true
                     }
                 }
@@ -150,7 +158,16 @@ pipeline {
 
                 steps {
                     sh '''
-                        npx playwright test --reporter=html
+
+                     node --version
+                    
+                    node_modules/.bin/netlify --version
+                    echo "Deploying to production. Site ID: $NETLIFY_SITE_ID"
+                    node_modules/.bin/netlify status
+                    node_modules/.bin/netlify deploy --dir=build --prod
+                    npx playwright test  --reporter=html
+
+    
                     '''
                 }
 
