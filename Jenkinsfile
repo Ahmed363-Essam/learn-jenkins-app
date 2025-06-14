@@ -17,10 +17,14 @@ pipeline {
                     reuseNode true
                 }
             }
+
+            steps {
+
             script{
                 env.MY_VAR = 'this is my var'
             }
-            steps {
+
+
                 sh '''
               
                     ls -la
