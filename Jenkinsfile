@@ -20,7 +20,9 @@ pipeline {
 
             steps {
 
- 
+            script{
+                env.MY_VAR = 'this is my var'
+            }
 
 
                 sh '''
@@ -33,10 +35,6 @@ pipeline {
                     npm run build
                     ls -la
                 '''
-            }
-
-                       script{
-                env.MY_VAR = 'this is my var'
             }
         }
         
