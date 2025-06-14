@@ -22,7 +22,7 @@ pipeline {
             }
             steps {
                 sh '''
-                echo "my var is ${env.MY_VAR} "
+              
                     ls -la
                     node --version
                     npm --version
@@ -49,6 +49,7 @@ pipeline {
 
                 steps {
                     sh '''
+                    echo "MY_VAR is $MY_VAR"
                         test -f build/index.html
                         npm test
                     '''
