@@ -106,12 +106,7 @@ pipeline {
             }
         }
 
-        stage('Deply prod') {
 
-            steps{
-                input cancel: 'No , i cannot', message: 'DO you eant to deploy it to production ..............?', ok: 'yes , i am sure'
-            }
-        }
 
         stage('Deply') {
             agent {
