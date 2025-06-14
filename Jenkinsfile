@@ -138,7 +138,7 @@ pipeline {
                     echo "Deploying to staging. Site ID: $NETFLY_SITE_ID"
        
                     netlify deploy --dir=build --prod --auth=$NETLIFY_AUTH_TOKEN --site=$NETFLY_SITE_ID
-                    CI_ENVIRONMENT_URL=$(node-jq -r '.deploy_url' deploy-output.json)
+  
                     npx playwright test  --reporter=html
 
 
