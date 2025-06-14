@@ -17,8 +17,12 @@ pipeline {
                     reuseNode true
                 }
             }
+            script{
+                env.MY_VAR = 'this is my var'
+            }
             steps {
                 sh '''
+                echo "my var is ${env.MY_VAR} "
                     ls -la
                     node --version
                     npm --version
