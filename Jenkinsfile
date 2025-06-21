@@ -95,7 +95,7 @@ pipeline {
             stage('E2E') {
                 agent {
                     docker {
-                        image 'my-playwright'
+                        image 'my-playwright:latest'
                         reuseNode true
                     }
                 }
@@ -127,7 +127,7 @@ pipeline {
         stage('Deply dev') {
             agent {
                 docker {
-                    image 'my-playwright'
+                    image 'my-playwright:latest'
                     reuseNode true
                 }
             }
@@ -145,7 +145,7 @@ pipeline {
         stage('Deply') {
             agent {
                 docker {
-                    image 'my-playwright'
+                    image 'my-playwright:latest'
                     reuseNode true
                 }
             }
@@ -169,7 +169,7 @@ pipeline {
             stage('Prod E2E') {
                 agent {
                     docker {
-                        image 'my-playwright'
+                        image 'my-playwright:latest'
                         reuseNode true
                     }
                 }
